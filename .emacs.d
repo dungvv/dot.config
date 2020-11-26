@@ -1,1 +1,1 @@
-D:/dev/msys64/home/dungv/.emacs.d
+../../../msys64/home/dungv/.emacs.d

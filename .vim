@@ -1,1 +1,1 @@
-D:/dev/msys64/home/dungv/.vim
+../../../msys64/home/dungv/.vim
