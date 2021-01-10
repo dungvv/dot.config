@@ -1,1 +1,0 @@
-../../../msys64/home/dungv/.emacs.d
