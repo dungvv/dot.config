@@ -21,6 +21,8 @@ call plug#begin('~/AppData/Local/nvim/plugged')
   Plug 'gregsexton/MatchTag'                              " highlight matching html tags
   Plug 'Jorengarenar/vim-MvVis'                           " move visual selection
   Plug 'sainnhe/gruvbox-material'
+  Plug 'mhinz/vim-startify'                               " cool start up screen
+  Plug 'ryanoasis/vim-devicons'                           " pretty icons everywhere
   "}}}
 
 
@@ -34,22 +36,19 @@ call plug#begin('~/AppData/Local/nvim/plugged')
   Plug 'honza/vim-snippets'                               " actual snippets
   Plug 'Yggdroot/indentLine'                              " show indentation lines
   Plug 'tpope/vim-commentary'                             " better commenting
-  Plug 'mhinz/vim-startify'                               " cool start up screen
   Plug 'tpope/vim-fugitive'                               " git support
   Plug 'psliwka/vim-smoothie'                             " some very smooth ass scrolling
   Plug 'machakann/vim-sandwich'                           " make sandwiches
   Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 
 
-  Plug 'yuki-ycino/fzf-preview.vim', { 'branch': 'release/rpc', 'do': ':UpdateRemotePlugins' }
   Plug 'airblade/vim-rooter'
-  " Plug 'brooth/far.vim'
+  Plug 'brooth/far.vim'
 
-  " Plug 'voldikss/vim-floaterm'
+  Plug 'voldikss/vim-floaterm'
 
-  " Plug 'puremourning/vimspector'
+  Plug 'puremourning/vimspector'
   " Plug 'mfussenegger/nvim-dap'
-  Plug 'ryanoasis/vim-devicons'                           " pretty icons everywhere
 
 call plug#end()
 
@@ -108,7 +107,7 @@ autocmd VimEnter *
   set cursorline
   set foldenable
   set foldlevelstart=10
-  set foldmethod=indent
+  set foldmethod=syntax
 
 " performance tweaks
   " set nocursorline
@@ -132,9 +131,9 @@ autocmd VimEnter *
 let g:highlightedyank_highlight_duration = 1000
 
 " Themeing
-let g:material_style = 'oceanic'
-" autocmd vimenter * ++nested colorscheme gruvbox-material
-colorscheme vim-material
+" let g:material_style = 'oceanic'
+autocmd vimenter * ++nested colorscheme gruvbox-material
+"colorscheme vim-material
 hi Pmenu guibg='#00010a' guifg=white                    " popup menu colors
 hi Comment gui=italic cterm=italic                      " italic comments
 hi Search guibg=#b16286 guifg=#ebdbb2 gui=NONE          " search string highlight color
@@ -153,7 +152,7 @@ hi CocCursorRange guibg=#b16286 guifg=#ebdbb2
 
 "}}}
 
-" ======================== Plugin Configurations ======================== "{{{
+" ======================= Plugin Configurations ======================== "{{{
 
 "" built in plugins
   let loaded_netrw = 0                                    " diable netew
@@ -175,7 +174,7 @@ hi CocCursorRange guibg=#b16286 guifg=#ebdbb2
   " let g:airline_section_z = airline#section#create(['%3p%% ', 'linenr', ':%c'])
   let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
   let g:airline#extensions#tabline#enabled = 1
-  let g:airline#extensions#tabline#buffer_min_count = 2   " show tabline only if there is more than 1 buffer
+  " let g:airline#extensions#tabline#buffer_min_count = 2   " show tabline only if there is more than 1 buffer
   let g:airline#extensions#tabline#fnamemod = ':t'        " show only file name on tabs
   let airline#extensions#coc#error_symbol = '✘:'
   let airline#extensions#coc#warning_symbol = '⚠:'
@@ -252,13 +251,13 @@ let g:startify_commands = [
 
 " custom banner
 
-let g:startify_custom_header = [
-        \ '                          ______          __   ',
-        \ '                         / ____/___  ____/ /__ ',
-        \ '                        / /   / __ \/ __  / _ \',
-        \ '                       / /___/ /_/ / /_/ /  __/',
-        \ '                       \____/\____/\__,_/\___/ ',
-        \]
+" let g:startify_custom_header = [
+"         \ '                          ______          __   ',
+"         \ '                         / ____/___  ____/ /__ ',
+"         \ '                        / /   / __ \/ __  / _ \',
+"         \ '                       / /___/ /_/ / /_/ /  __/',
+"         \ '                       \____/\____/\__,_/\___/ ',
+"         \]
 
 " rainbow brackets
 let g:rainbow_active = 1
@@ -291,7 +290,7 @@ let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffse
 let g:fzf_tags_command = 'ctags -R'
 
 let $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info'
-let $FZF_DEFAULT_COMMAND = "rg --files --hidden "
+let $FZF_DEFAULT_COMMAND = "rg --files --hidden -g \"!.git/**\" -g \"!node_modules/**\" -g \"!build\" -g \"!target\" -g \"!.idea\" -g \"!**.class\""
 " let $FZF_DEFAULT_COMMAND = "rg --files --hidden --glob '!.git/**' --glob '!build/**' --glob '!.dart_tool/**' --glob '!.idea'"
 
 "}}}
@@ -338,7 +337,7 @@ autocmd BufReadPost *
      \   exe "normal! g`\"" |
      \ endif
 
-" coc-smartf auto 
+" coc-smartf auto
 augroup Smartf
   autocmd User SmartfEnter :hi Conceal ctermfg=220 guifg=#6638F0
   autocmd User SmartfLeave :hi Conceal ctermfg=239 guifg=#504945
@@ -469,6 +468,9 @@ inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 " Use enter to accept snippet expansion
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
+
+" ctrl-space to force auto-completion
+inoremap <silent><expr> <c-space> coc#refresh()
 
 " multi cursor shortcuts
 nmap <silent> <C-a> <Plug>(coc-cursors-word)

@@ -9,8 +9,7 @@
     "markdown",
     "typescript",
     "python",
-    "dart",
-    "java"
+    "dart"
   ],
   "codeLens.enable": true,
   // "codeLens.separator": ">",
@@ -86,3 +85,4 @@
   "todolist.dateFormat": "YYYY-MM-DD HH:mm",
   "todolist.monitor": true
 }
+
