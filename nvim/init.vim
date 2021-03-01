@@ -16,7 +16,7 @@ call plug#begin($HOME . '/AppData/Local/nvim/plugged')
   Plug 'Jorengarenar/vim-MvVis'                           " move visual selection
   Plug 'sainnhe/gruvbox-material'
   Plug 'mhinz/vim-startify'                               " cool start up screen
-  " Plug 'ryanoasis/vim-devicons' 
+  " Plug 'ryanoasis/vim-devicons'
 
   Plug 'neoclide/coc.nvim', {'branch': 'release'}         " LSP and more
   Plug 'neoclide/coc-prettier', { 'do': 'yarn install --frozen-lockfile' } " coc-prettier can not install with npm
@@ -113,4 +113,234 @@ set signcolumn=yes
 let g:highlighedyank_highligh_duration=1000
 
 autocmd vimenter * ++nested colorscheme gruvbox-material
+
+" some colors tweak
+hi Pmenu guibg=#00010a guifg=white            " popup menu color
+hi Comment gui=italic cterm=italic
+hi Search guibg=#b16286 guifg=#ebdbb2 gui=NONE
+hi NonText guifg=bg
+hi clear CursorLineNr
+hi CursorLineNr gui=bold
+hi SpellBad guifg=NONE gui=bold,undercurl
+
+" colors for git
+"hi DiffAdd guibg=#0f111a guifg=#43a047
+"hi DiffChange guibg=#0f111a guifg=#fdd835
+"hi DiffRemoved guibg=#0f111a guifg=#e53935
+
+" color for coc
+"hi CocCursorRange guibg=#b16286 guifg=#ebdbb2
+
+
+" plugin configs
+" builtin plugin
+let loaded_netrw=0
+let g:omni_sql_no_default_maps=1    " disable omni sql completion
+
+" vim rooter
+let g:rooter_patterns = ['.git', 'Makefile', '*.sln', 'build/env.sh', '.idea']
+let g:rooter_change_directory_for_non_project_files = 'current'
+let g:rooter_resolve_links = 1
+
+" vim airline
+let g:airline_theme='material'
+let g:airline_skip_empty_sections = 1
+let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
+let g:airline#extensions#tabline#enabled=1
+" let g:airline#extensions#tabline#buffer_min_count=2
+let g:airline#extensions#tabline#fnamemod=':t'
+let airline#extensions#coc#error_symbol='✘:'
+let airline#extensions#coc#warning_symbol='⚠:'
+let g:airline_powerline_fonts=1
+if !exists('g:airline_symbols')
+    let g:airline_symbols={}
+endif
+
+" coc configs
+" snippets
+let g:coc_snippet_next = '<Tab>'
+let g:coc_snippet_prev = '<S-Tab>'
+
+" global extentions
+let g:coc_global_extensions = [
+            \'coc-yank',
+            \'coc-pairs',
+            \'coc-json',
+            \'coc-actions',
+            \'coc-css',
+            \'coc-html',
+            \'coc-tsserver',
+            \'coc-yaml',
+            \'coc-lists',
+            \'coc-snippets',
+            \'coc-python',
+            \'coc-clangd',
+            \'coc-prettier',
+            \'coc-xml',
+            \'coc-syntax',
+            \'coc-git',
+            \'coc-marketplace',
+            \'coc-highlight',
+            \'coc-flutter',
+            \'coc-java',
+            \'coc-todolist',
+            \'coc-smartf'
+            \]
+
+" indentLine
+" let g:indentLine_char_list = ['▏', '¦', '┆', '┊']
+let g:indentLine_setColors = 0
+let g:indentLine_setConceal = 0                         " actually fix the annoying markdown links conversion
+let g:indentLine_fileTypeExclude = ['startify']
+
+"" startify
+let g:startify_padding_left = 10
+let g:startify_session_persistence = 1
+let g:startify_enable_special = 0
+let g:startify_change_to_vcs_root = 1
+let g:startify_session_autoload = 1
+let g:startify_session_delete_buffers = 1
+let g:startify_fortune_use_unicode = 1
+let g:startify_enable_special = 0
+let g:startify_lists = [
+    \ { 'type': 'files'     },
+    \ { 'type': 'sessions'  },
+    \ { 'type': 'bookmarks' },
+    \ { 'type': 'commands' },
+    \ ]
+
+" custom commands
+let g:startify_commands = [
+    \ {'ch':  ['Health Check', ':checkhealth']},
+    \ {'ps': ['Plugins status', ':PlugStatus']},
+    \ {'pu': ['Update vim plugins',':PlugUpdate | PlugUpgrade']},
+    \ {'uc': ['Update coc Plugins', ':CocUpdate']},
+    \ {'h':  ['Help', ':help']},
+    \ ]
+
+" rainbow brackets
+let g:rainbow_active = 1
+
+"" FZF
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'border': 'sharp' } }
+let g:fzf_tags_command = 'ctags -R'
+
+let $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info'
+let $FZF_DEFAULT_COMMAND = "rg --files --hidden -g \"!.git/**\" -g \"!node_modules/**\" -g \"!build\" -g \"!target\" -g \"!.idea\" -g \"!**.class\""
+
+"================= commands ===================
+au BufEnter * set fo-=c fo-=r fo-=o    " stop annoying auto commenting on newline
+au FileType help wincmd L               " open help in vertical split
+au BufWritePre * :%s/\s\+$//e           " remove trailing whitespaces before saving
+au CursorHold * silent call CocActionAsync('highlight') " highlight match cursor hold
+
+" enable spell check if only file type is text
+let spellable = ['markdown', 'gitcommit', 'txt', 'text', 'liquid', 'rst']
+autocmd BufEnter * if index(spellable, &ft) < 0 | set nospell | else | set spell | endif
+
+" coc completion popup
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+
+" startify if no passed argument or all buffers are closed
+augroup noargs
+    autocmd BufDelete * if empty(filter(tabpagebuflist(), '!buflisted(v:val)')) | Startify | endif
+    autocmd VimEnter * if argc() == 0 | Startify | endif
+augroup END
+
+" fzf if passed folder
+augroup folderarg
+    autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'cd' fnameescape(argv()[0]) | endif
+    autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | Startify | endif
+    autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'Files' fnameescape(argv()[0]) | endif
+augroup END
+
+" return to last edit position when opening file
+autocmd BufReadPost *
+    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal! g`\"" |
+    \ endif
+
+" coc-smartf auto
+augroup Smartf
+    autocmd User SmartfEnter :hi Conceal ctermfg=220 guifg=#6638F0
+    autocmd User SmartfLeave :hi Conceal ctermfg=239 guifg=#504945
+augroup END
+
+
+" format command
+command! -nargs=0 Format :call CocAction('format')
+" organize imports
+command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
+" files in fzf
+command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options':['--layout=reverse', '--inline-info']}), <bang>0)
+" advanced grep
+command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)
+
+"================== custom functions ===============
+" advanced grep
+function! RipgrepFzf(query, fullscreen)
+    let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
+    let initial_command = printf(command_fmt, shellescape(a:query))
+    let reload_command = printf(command_fmt, '{q}')
+    let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+    call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+
+" startify file icons
+"function! StartifyEntryFormat()
+"    return 'WebDevIconsGetFileTypeSymbol(absolute_path) ." ". entry_path'
+"endfunction
+
+" check if last inserted char is a backspace (used by coc pmenu)
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" show docs on things with K
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" =============== mappings =======================
+let mapleader = ' '
+nnoremap ; :
+map <F6> :Startify <CR>
+nmap <leader>r :so ~/AppData/Local/nvim/init.vim<CR>
+noremap <C-s> :w <CR>
+noremap <C-q> :q<CR>
+nmap <leader>q :bd<CR>
+nmap <leader>w :w<CR>
+map <leader>f :Format<CR>
+nmap <Tab> :bnext<CR>
+nmap <S-Tab> :bprevious<CR>
+noremap <leader>e :PlugInstall<CR>
+
+" new line in normal mode and back
+map <Enter> o<ESC>
+map <S-Enter> O<ESC>
 
