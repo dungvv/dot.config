@@ -143,7 +143,7 @@ let g:rooter_change_directory_for_non_project_files = 'current'
 let g:rooter_resolve_links = 1
 
 " vim airline
-let g:airline_theme='material'
+" let g:airline_theme='material'
 let g:airline_skip_empty_sections = 1
 let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
 let g:airline#extensions#tabline#enabled=1
@@ -151,7 +151,7 @@ let g:airline#extensions#tabline#enabled=1
 let g:airline#extensions#tabline#fnamemod=':t'
 let airline#extensions#coc#error_symbol='✘:'
 let airline#extensions#coc#warning_symbol='⚠:'
-let g:airline_powerline_fonts=1
+" let g:airline_powerline_fonts=1
 if !exists('g:airline_symbols')
     let g:airline_symbols={}
 endif
@@ -175,7 +175,6 @@ let g:coc_global_extensions = [
             \'coc-snippets',
             \'coc-python',
             \'coc-clangd',
-            \'coc-prettier',
             \'coc-xml',
             \'coc-syntax',
             \'coc-git',
@@ -183,8 +182,7 @@ let g:coc_global_extensions = [
             \'coc-highlight',
             \'coc-flutter',
             \'coc-java',
-            \'coc-todolist',
-            \'coc-smartf'
+            \'coc-todolist'
             \]
 
 " indentLine
@@ -343,4 +341,77 @@ noremap <leader>e :PlugInstall<CR>
 " new line in normal mode and back
 map <Enter> o<ESC>
 map <S-Enter> O<ESC>
+
+" use different register fir delete and paste
+nnoremap d "_d
+vnoremap d "_d
+vnoremap p "_dP
+nnoremap x "_x
+
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" disable hl with 2 escape
+noremap <silent><esc> <esc> :nohl<CR><esc>
+
+" trim white spaces
+nnoremap <F2> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
+
+" markdown preview
+au FileType markdown nmap <leader>m :MarkdownPreview<CR>
+
+" fzf
+nnoremap <silent> <leader>f :Files<CR>
+nmap <leader>b :Buffers<CR>
+nmap <leader>c :Commands<CR>
+nmap <leader>t :BTags<CR>
+nmap <leader>/ :Rg<CR>
+nmap <leader>gc :Commits<CR>
+nmap <leader>gs :GFiles?<CR>
+nmap <leader>sh :History/<CR>
+
+" show mapping on all modes with F1
+nmap <F1> <plug>(fzf-map-n)
+imap <F1> <plug>(fzf-map-i)
+vmap <F1> <plug>(fzf-map-x)
+
+" ============================COC=======================
+" use tab to navigate snippets placeholders
+inoremap <silent><expr> <TAB>
+    \ pumvisible() ? "\<C-n>" :
+    \ <SID>check_back_space() ? "\<TAB>" :
+    \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" use enter to accept snippet expansion
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
+" crtl-space to force completion
+inoremap <silent><expr> <c-space> coc#refresh()
+" multi cursor shortcut
+nmap <silent> <C-a> <Plug>(coc-cursors-word)
+xmap <silent> <C-a> <Plug>(coc-cursors-range)
+" use [g and ]g to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+" other stuff
+nmap <leader>rn <Plug>(coc-rename)
+nmap <leader>o :OR <CR>
+" jump stuff
+nmap <leader>jd <Plug>(coc-definition)
+nmap <leader>jy <Plug>(coc-type-definition)
+nmap <leader>ji <Plug>(coc-implementation)
+nmap <leader>jr <Plug>(coc-references)
+" other coc actions
+xmap <silent> <leader>a :<C-u>execute 'CocCommand actions.open' . visualmode()<CR>
+nmap <leader>a :CocCommand actions.open<CR>
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+" flutter mapping
+nnoremap <F3> :CocCommand flutter.devices<CR>
+nnoremap <F4> :CocCommand flutter.emulator<CR>
+nnoremap <F5> :CocCommand flutter.run<CR>
+
+" fugitive mapping
+nmap <leader>gd :Gdiffsplit<CR>
+nmap <leader>gb :Gblame<CR>
 
