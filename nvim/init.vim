@@ -167,7 +167,6 @@ let g:coc_global_extensions = [
             \'coc-pairs',
             \'coc-json',
             \'coc-actions',
-            \'coc-css',
             \'coc-html',
             \'coc-tsserver',
             \'coc-yaml',
@@ -182,7 +181,8 @@ let g:coc_global_extensions = [
             \'coc-highlight',
             \'coc-flutter',
             \'coc-java',
-            \'coc-todolist'
+            \'coc-todolist',
+            \'coc-vetur'
             \]
 
 " indentLine
@@ -251,6 +251,10 @@ au BufEnter * set fo-=c fo-=r fo-=o    " stop annoying auto commenting on newlin
 au FileType help wincmd L               " open help in vertical split
 au BufWritePre * :%s/\s\+$//e           " remove trailing whitespaces before saving
 au CursorHold * silent call CocActionAsync('highlight') " highlight match cursor hold
+
+" set tab width by file type
+let smalltabtypes = ['js', 'htm', 'html', 'css', 'sass', 'less', 'vue', 'jsx']
+autocmd BufEnter * if index(smalltabtypes, &ft) >= 0 | setlocal shiftwidth=2 softtabstop=2 expandtab | endif
 
 " enable spell check if only file type is text
 let spellable = ['markdown', 'gitcommit', 'txt', 'text', 'liquid', 'rst']
