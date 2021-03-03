@@ -1,52 +1,52 @@
 " auto-install vim-plug
 if empty(glob($HOME . '/AppData/Local/nvim/autoload/plug.vim'))
-  silent !curl -fLo ~/AppData/Local/nvim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  "autocmd VimEnter * PlugInstall
-  autocmd VimEnter * PlugInstall | source $MYVIMRC
+    silent !curl -fLo ~/AppData/Local/nvim/autoload/plug.vim --create-dirs
+                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    "autocmd VimEnter * PlugInstall
+    autocmd VimEnter * PlugInstall | source $MYVIMRC
 endif
 
 call plug#begin($HOME . '/AppData/Local/nvim/plugged')
 
-  Plug 'vim-airline/vim-airline'                          " airline status bar
-  Plug 'vim-airline/vim-airline-themes'
-  Plug 'luochen1990/rainbow'                              " rainbow parenthesis
-  Plug 'hzchirs/vim-material'                             " material color themes
-  Plug 'gregsexton/MatchTag'                              " highlight matching html tags
-  Plug 'Jorengarenar/vim-MvVis'                           " move visual selection
-  Plug 'sainnhe/gruvbox-material'
-  Plug 'mhinz/vim-startify'                               " cool start up screen
-  " Plug 'ryanoasis/vim-devicons'
+Plug 'vim-airline/vim-airline'                          " airline status bar
+Plug 'vim-airline/vim-airline-themes'
+Plug 'luochen1990/rainbow'                              " rainbow parenthesis
+Plug 'hzchirs/vim-material'                             " material color themes
+Plug 'gregsexton/MatchTag'                              " highlight matching html tags
+Plug 'Jorengarenar/vim-MvVis'                           " move visual selection
+Plug 'sainnhe/gruvbox-material'
+Plug 'mhinz/vim-startify'                               " cool start up screen
+" Plug 'ryanoasis/vim-devicons'
 
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}         " LSP and more
-  Plug 'neoclide/coc-prettier', { 'do': 'yarn install --frozen-lockfile' } " coc-prettier can not install with npm
-  Plug 'junegunn/fzf'     " fzf itself
-  Plug 'junegunn/fzf.vim'                                 " fuzzy search integration
-  Plug 'SirVer/ultisnips'                                 " snippets manager
-  Plug 'honza/vim-snippets'                               " actual snippets
-  Plug 'Yggdroot/indentLine'                              " show indentation lines
-  Plug 'tpope/vim-commentary'                             " better commenting
-  Plug 'tpope/vim-fugitive'                               " git support
-  Plug 'psliwka/vim-smoothie'                             " some very smooth ass scrolling
-  Plug 'machakann/vim-sandwich'                           " make sandwiches
-  Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+Plug 'neoclide/coc.nvim', {'branch': 'release'}         " LSP and more
+Plug 'neoclide/coc-prettier', { 'do': 'yarn install --frozen-lockfile' } " coc-prettier can not install with npm
+Plug 'junegunn/fzf'     " fzf itself
+Plug 'junegunn/fzf.vim'                                 " fuzzy search integration
+Plug 'SirVer/ultisnips'                                 " snippets manager
+Plug 'honza/vim-snippets'                               " actual snippets
+Plug 'Yggdroot/indentLine'                              " show indentation lines
+Plug 'tpope/vim-commentary'                             " better commenting
+Plug 'tpope/vim-fugitive'                               " git support
+Plug 'psliwka/vim-smoothie'                             " some very smooth ass scrolling
+Plug 'machakann/vim-sandwich'                           " make sandwiches
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 
 
-  Plug 'airblade/vim-rooter'
-  Plug 'brooth/far.vim'
+Plug 'airblade/vim-rooter'
+Plug 'brooth/far.vim'
 
-  Plug 'voldikss/vim-floaterm'
+Plug 'voldikss/vim-floaterm'
 
-  " Plug 'puremourning/vimspector'
-  Plug 'mfussenegger/nvim-dap'
+" Plug 'puremourning/vimspector'
+Plug 'mfussenegger/nvim-dap'
 
 call plug#end()
 
 " auto install missing plugins on startup
 autocmd VimEnter *
-  \ if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-  \|    PlugInstall --sync | q
-  \| endif
+            \ if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+            \|    PlugInstall --sync | q
+            \| endif
 
 "====================general config=================================
 set termguicolors
@@ -201,44 +201,44 @@ let g:startify_session_delete_buffers = 1
 let g:startify_fortune_use_unicode = 1
 let g:startify_enable_special = 0
 let g:startify_lists = [
-    \ { 'type': 'files'     },
-    \ { 'type': 'sessions'  },
-    \ { 'type': 'bookmarks' },
-    \ { 'type': 'commands' },
-    \ ]
+            \ { 'type': 'files'     },
+            \ { 'type': 'sessions'  },
+            \ { 'type': 'bookmarks' },
+            \ { 'type': 'commands' },
+            \ ]
 
 " custom commands
 let g:startify_commands = [
-    \ {'ch':  ['Health Check', ':checkhealth']},
-    \ {'ps': ['Plugins status', ':PlugStatus']},
-    \ {'pu': ['Update vim plugins',':PlugUpdate | PlugUpgrade']},
-    \ {'uc': ['Update coc Plugins', ':CocUpdate']},
-    \ {'h':  ['Help', ':help']},
-    \ ]
+            \ {'ch':  ['Health Check', ':checkhealth']},
+            \ {'ps': ['Plugins status', ':PlugStatus']},
+            \ {'pu': ['Update vim plugins',':PlugUpdate | PlugUpgrade']},
+            \ {'uc': ['Update coc Plugins', ':CocUpdate']},
+            \ {'h':  ['Help', ':help']},
+            \ ]
 
 " rainbow brackets
 let g:rainbow_active = 1
 
 "" FZF
 let g:fzf_action = {
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-x': 'split',
-  \ 'ctrl-v': 'vsplit' }
+            \ 'ctrl-t': 'tab split',
+            \ 'ctrl-x': 'split',
+            \ 'ctrl-v': 'vsplit' }
 
 let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
+            \ { 'fg':      ['fg', 'Normal'],
+            \ 'bg':      ['bg', 'Normal'],
+            \ 'hl':      ['fg', 'Comment'],
+            \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+            \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+            \ 'hl+':     ['fg', 'Statement'],
+            \ 'info':    ['fg', 'PreProc'],
+            \ 'border':  ['fg', 'Ignore'],
+            \ 'prompt':  ['fg', 'Conditional'],
+            \ 'pointer': ['fg', 'Exception'],
+            \ 'marker':  ['fg', 'Keyword'],
+            \ 'spinner': ['fg', 'Label'],
+            \ 'header':  ['fg', 'Comment'] }
 
 let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'border': 'sharp' } }
 let g:fzf_tags_command = 'ctags -R'
@@ -278,9 +278,9 @@ augroup END
 
 " return to last edit position when opening file
 autocmd BufReadPost *
-    \ if line("'\"") > 0 && line("'\"") <= line("$") |
-    \   exe "normal! g`\"" |
-    \ endif
+            \ if line("'\"") > 0 && line("'\"") <= line("$") |
+            \   exe "normal! g`\"" |
+            \ endif
 
 " coc-smartf auto
 augroup Smartf
@@ -315,17 +315,17 @@ endfunction
 
 " check if last inserted char is a backspace (used by coc pmenu)
 function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
 " show docs on things with K
 function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
+    if (index(['vim','help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+    else
+        call CocAction('doHover')
+    endif
 endfunction
 
 " =============== mappings =======================
@@ -337,11 +337,11 @@ noremap <C-s> :w <CR>
 noremap <C-q> :q<CR>
 nmap <leader>q :bd<CR>
 nmap <leader>w :w<CR>
-map <leader>f :Format<CR>
+map <leader>fm :Format<CR>
 nmap <Tab> :bnext<CR>
 nmap <S-Tab> :bprevious<CR>
 noremap <leader>e :PlugInstall<CR>
-
+map <F7> gg=G<C-o><C-o>
 " new line in normal mode and back
 map <Enter> o<ESC>
 map <S-Enter> O<ESC>
@@ -384,9 +384,9 @@ vmap <F1> <plug>(fzf-map-x)
 " ============================COC=======================
 " use tab to navigate snippets placeholders
 inoremap <silent><expr> <TAB>
-    \ pumvisible() ? "\<C-n>" :
-    \ <SID>check_back_space() ? "\<TAB>" :
-    \ coc#refresh()
+            \ pumvisible() ? "\<C-n>" :
+            \ <SID>check_back_space() ? "\<TAB>" :
+            \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 " use enter to accept snippet expansion
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
