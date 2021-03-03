@@ -253,7 +253,7 @@ au BufWritePre * :%s/\s\+$//e           " remove trailing whitespaces before sav
 au CursorHold * silent call CocActionAsync('highlight') " highlight match cursor hold
 
 " set tab width by file type
-let smalltabtypes = ['js', 'htm', 'html', 'css', 'sass', 'less', 'vue', 'jsx']
+let smalltabtypes = ['javascript', 'js', 'htm', 'html', 'css', 'sass', 'less', 'vue', 'jsx']
 autocmd BufEnter * if index(smalltabtypes, &ft) >= 0 | setlocal shiftwidth=2 softtabstop=2 expandtab | endif
 
 " enable spell check if only file type is text
