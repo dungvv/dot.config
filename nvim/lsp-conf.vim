@@ -32,10 +32,11 @@ local on_attach = function(client, bufnr)
 end
 
 local function setup_servers()
-  require'lspinstall'.setup()
-  local servers = require'lspinstall'.installed_servers()
-  for _, server in pairs(servers) do
-    require'lspconfig'[server].setup{ on_attach = on_attach }
+  --require'lspinstall'.setup()
+  --local servers = require'lspinstall'.installed_servers()
+  local servers = {"tsserver"}
+  for _, server in ipairs(servers) do
+    nvim_lsp[server].setup{ on_attach = on_attach }
   end
 end
 

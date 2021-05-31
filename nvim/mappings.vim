@@ -9,7 +9,7 @@ map <leader>fm :Format<CR>
 nmap <Tab> :bnext<CR>
 nmap <S-Tab> :bprevious<CR>
 noremap <leader>e :PlugInstall<CR>
-map <F7> gg=G<C-o><C-o>
+"map <F7> gg=G<C-o><C-o>
 " new line in normal mode and back
 map <Enter> o<ESC>
 map <S-Enter> O<ESC>

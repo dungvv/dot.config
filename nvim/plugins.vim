@@ -27,6 +27,7 @@ Plug 'SirVer/ultisnips'                                 " snippets manager
 Plug 'honza/vim-snippets'                               " actual snippets
 Plug 'tpope/vim-commentary'                             " better commenting
 " Plug 'tpope/vim-fugitive'                               " git support
+Plug 'voldikss/vim-floaterm'
 Plug 'airblade/vim-rooter'
 " Plug 'brooth/far.vim'
 Plug 'mfussenegger/nvim-dap'
